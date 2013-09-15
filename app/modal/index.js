@@ -1,41 +1,8 @@
-﻿define(['plugins/router', 'global', 'knockout'], function( router, global, ko ) {
-    var childRouter = router.createChildRouter()
-      .makeRelative({
-           moduleId: 'modal',
-           route: 'modal'
-       }).map([
-          {
-              type: 'intro',
-              title: 'Modal',
-              route: '',
-              moduleId: 'default/index'
-          },
-          {
-              type: 'intro',
-              title: 'Modal Dialog',
-              route: 'default',
-              moduleId: 'default/index',
-              nav: true
-          },
-          {
-              type: 'fiddle',
-              title: 'Modal Dialog',
-              route: 'dFiddle',
-              moduleId: 'dFiddle/index',
-              nav: true
-          }
-      ])
-      .buildNavigationModel();
-
-      childRouter.on('router:navigation:complete').then(global.createSampleLink);
-
-
+﻿define(['durandal/app', './customModal'], function (app, CustomModal) {
     return {
-        global: global,
-        router: childRouter,
-        getItemsByCategoryId: function( categoryId ) {
-            return ko.utils.arrayFilter(childRouter.navigationModel(), function( route ) {
-                return route.type === categoryId;
+        showCustomModal: function() {
+            CustomModal.show().then(function(response) {
+                app.showMessage('You answered "' + response + '".');
             });
         }
     };

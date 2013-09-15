@@ -7,7 +7,7 @@
         this.addChild = function () {
             this.children.push("New child");
         }.bind(this);
-    };
+    }
 
     // The view model is an abstract description of the state of the UI, but without any knowledge of the UI technology (HTML)
     return {

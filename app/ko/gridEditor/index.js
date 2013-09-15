@@ -24,7 +24,7 @@
     var vm = {
         GiftModel: new GiftModel([{ name: "Tall Hat", price: "39.95" }, { name: "Long Cloak", price: "120.00" }]),
         doSubmit: doSubmit
-    };
+    }
 
     function doSubmit() {
         vm.GiftModel.save();

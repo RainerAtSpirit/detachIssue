@@ -1,28 +1,34 @@
-﻿define(['plugins/router', 'durandal/system', 'global', 'knockout'], function( router, system, global, ko ) {
-    var childRouter = router.createChildRouter()
-      .makeRelative({
-          moduleId: 'hello',
-          route: 'hello'
-      }).map([
-          {route: '', moduleId: 'default/index', title: 'Hello World', type: 'intro'},
-          {route: 'default', moduleId: 'default/index', title: 'Hello World', type: 'intro', nav: true},
-          {route: 'dFiddle', moduleId: 'dFiddle/index', title: 'Hello World', type: 'fiddle', nav: true}
-      ]).buildNavigationModel();
-      
-    // .on is mixed in an not meant to be  chainable 
-    childRouter.on('router:navigation:complete').then(global.createSampleLink);
+﻿define(['durandal/app', 'durandal/system', 'knockout'], function (app, system, ko) {
+    var name = ko.observable();
+    var canSayHello = ko.computed(function () {
+        return name() ? true : false;
+    });
 
     return {
-        global: global,
-        router: childRouter,
-        getItemsByCategoryId: function( categoryId ) {
-            return ko.utils.arrayFilter(childRouter.navigationModel(), function( route ) {
-                return route.type === categoryId;
-            });
+        displayName: 'What is your name?',
+        name: name,
+        sayHello: function() {
+            app.showMessage('Hello ' + name() + '!', 'Greetings');
         },
-        binding: function() {
-            system.log('Lifecycle : binding : hello/index');
-            return { cacheViews: false }; //cancels view caching for this module, allowing the triggering of the detached callback
+        canSayHello: canSayHello,
+        activate: function() {
+            system.log('Lifecycle : activate : hello');
+        },
+        binding: function () {
+            system.log('Lifecycle : binding : hello');
+            return { cacheViews:false }; //cancels view caching for this module, allowing the triggering of the detached callback
+        },
+        bindingComplete: function () {
+            system.log('Lifecycle : bindingComplete : hello');
+        },
+        attached: function (view, parent) {
+            system.log('Lifecycle : attached : hello');
+        },
+        compositionComplete: function (view) {
+            system.log('Lifecycle : compositionComplete : hello');
+        },
+        detached: function (view) {
+            system.log('Lifecycle : detached : hello');
         }
     };
 });
