@@ -40,6 +40,25 @@
         sortByName: sortByName,
         jumpToFirstPage: jumpToFirstPage,
         gridViewModel: gridViewModel,
-        SimpleGrid: SimpleGrid
+        SimpleGrid: SimpleGrid,
+        activate: function() {
+            system.log('Lifecycle : activate : pageGrid');
+        },
+        binding: function() {
+            system.log('Lifecycle : binding : pageGrid');
+            return { cacheViews: false }; //cancels view caching for this module, allowing the triggering of the detached callback
+        },
+        bindingComplete: function() {
+            system.log('Lifecycle : bindingComplete : pageGrid');
+        },
+        attached: function( view, parent ) {
+            system.log('Lifecycle : attached : pageGrid');
+        },
+        compositionComplete: function( view ) {
+            system.log('Lifecycle : compositionComplete : pageGrid');
+        },
+        detached: function( view ) {
+            system.log('Lifecycle : detached : pageGrid');
+        }
     };
 });
