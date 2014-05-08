@@ -20,45 +20,20 @@
         pageSize: 4
     });
 
-    var addItem = function() {
-        items.push({ name: "New item", sales: 0, price: 100 });
-    };
-
-    var sortByName = function() {
-        items.sort(function(a, b) {
-            return a.name < b.name ? -1 : 1;
-        });
-    };
-
-    var jumpToFirstPage = function() {
-        gridViewModel.currentPageIndex(0);
-    };
-
     return {
         items: items,
-        addItem: addItem,
-        sortByName: sortByName,
-        jumpToFirstPage: jumpToFirstPage,
+        addItem:function() {
+            items.push({ name: "New item", sales: 0, price: 100 });
+        },
+        sortByName: function() {
+            items.sort(function(a, b) {
+                return a.name < b.name ? -1 : 1;
+            });
+        },
+        jumpToFirstPage: function() {
+            gridViewModel.currentPageIndex(0);
+        },
         gridViewModel: gridViewModel,
-        SimpleGrid: SimpleGrid,
-        activate: function() {
-            system.log('Lifecycle : activate : pageGrid');
-        },
-        binding: function() {
-            system.log('Lifecycle : binding : pageGrid');
-            return { cacheViews: false }; //cancels view caching for this module, allowing the triggering of the detached callback
-        },
-        bindingComplete: function() {
-            system.log('Lifecycle : bindingComplete : pageGrid');
-        },
-        attached: function( view, parent ) {
-            system.log('Lifecycle : attached : pageGrid');
-        },
-        compositionComplete: function( view ) {
-            system.log('Lifecycle : compositionComplete : pageGrid');
-        },
-        detached: function( view ) {
-            system.log('Lifecycle : detached : pageGrid');
-        }
+        SimpleGrid: SimpleGrid
     };
 });
